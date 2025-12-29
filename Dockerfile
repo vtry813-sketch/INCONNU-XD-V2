@@ -1,20 +1,20 @@
-# Use official Node.js imag
-FROM node:20-buster
+# Image Node.js légère
+FROM node:20-slim
 
-# Set the working directory inside the container
+# Dossier de travail
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
+# Copier les fichiers de dépendances
 COPY package*.json ./
 
-# Install the application dependencies
-RUN npm install && npm install -g pm2
+# Installer les dépendances
+RUN npm install --production
 
-# Copy the rest of the application files into the container
+# Copier le reste du projet
 COPY . .
 
-# Expose the port your app will be running on
+# Render utilise le port fourni par l'environnement
 EXPOSE 8000
 
-# Command to run the app
+# Démarrer l'application
 CMD ["npm", "start"]
